@@ -20,16 +20,16 @@ def real_python_path
 end
 
 def pip_command(subcommand)
-  options = { :timeout => new_resource.timeout, :user => new_resource.user, :group => new_resource.group }
+  options = { :timeout => timeout, :user => user, :group => group }
   environment = Hash.new
-  environment['HOME'] = Dir.home(new_resource.user) if new_resource.user
-  environment.merge!(new_resource.environment) if new_resource.environment && !new_resource.environment.empty?
+  environment['HOME'] = Dir.home(user) if user
+  environment.merge!(environment) if environment && !environment.empty?
   # Append pip starter to subcommand
   subcommand=subcommand.clone()
   if subcommand.class==Array
-    subcommand.unshift('-m','pip')
+    subcommand.unshift(real_python_path,'-m','pip')
   elsif subcommand.class==String
-    subcommand='-m pip '+subcommand
+    subcommand=real_python_path+' -m pip '+subcommand
   else
     raise 'Invalid subcommand type. Supply Array or String'
   end
@@ -50,15 +50,15 @@ load_current_value do
 end
 
 action :install do
-  if new_resource.package_url
+  if package_url
     # We have a url to install from
-    args=['install',new_resource.package_url]
-  elsif new_resource.version.nil?
+    args=['install',package_url]
+  elsif version.nil?
     # We have no specific version
-    args=['install', new_resource.package_name]
+    args=['install', package_name]
   else
     # We have a specific version
-    args=['install', "#{new_resrouce.package_name}==#{new_resource.version}"]
+    args=['install', "#{package_name}==#{version}"]
   end
   converge_by "Installing backslasher_python_pip #{new_resrouce.package_name}" do
     pip_command(args)
@@ -66,13 +66,13 @@ action :install do
 end
 
 def should_remove?
-  if current_resource.version.nil?
+  if current_resource.nil?
     # Nothing installed
     false
-  elsif new_resource.version.nil?
+  elsif version.nil?
     # Something is installed, remove it
     true
-  elsif new_resource.version == current_resrouce.version
+  elsif version == current_resrouce.version
     # We're supposed to remove a version, and this is it
     true
   else
@@ -83,17 +83,17 @@ end
 
 action :remove do
   if should_remove?
-    converge_by "Removing backslasher_python_pip #{new_resource.package_name}" do
-      pip_command(['uninstall','--yes',new_resource.package_name])
+    converge_by "Removing backslasher_python_pip #{package_name}" do
+      pip_command(['uninstall','--yes',package_name])
     end
   end
 end
 
 action :upgrade do
   # Upgrading
-  if current_resource.version.nil? or (current_resource.version != new_resource.version)
-    converge_by "Upgrading backslasher_python_pip #{args}" do
-      pip_command(['install','--upgrade',new_resource.package_name])
+  if current_resource.nil? or (current_resource.version != version)
+    converge_by "Upgrading backslasher_python_pip" do
+      pip_command(['install','--upgrade',package_name])
     end
   end
 end
