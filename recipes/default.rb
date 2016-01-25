@@ -7,6 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "backslasher_python::#{node['backslasher-python']['install_method']}"
-include_recipe "backslasher_python::pip"
-include_recipe "backslasher_python::virtualenv"
+include_recipe "backslasher-python::#{node['backslasher-python']['install_method']}"
+include_recipe "backslasher-python::pip"
+include_recipe "backslasher-python::virtualenv"
