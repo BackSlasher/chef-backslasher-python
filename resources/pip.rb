@@ -60,7 +60,7 @@ action :install do
     # We have a specific version
     args=['install', "#{package_name}==#{version}"]
   end
-  converge_by "Installing backslasher_python_pip #{new_resrouce.package_name}" do
+  converge_by "Installing backslasher_python_pip #{package_name}" do
     pip_command(args)
   end
 end
