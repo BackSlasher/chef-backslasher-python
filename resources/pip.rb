@@ -60,7 +60,7 @@ action :install do
   else
     # We have a specific version
     args=['install', "#{package_name}==#{version}"]
-    return if current_resource and current_resource.version == version # Don't install if it's the current version
+    return if current_value and current_value.version == version
   end
   converge_by "Installing backslasher_python_pip #{package_name}" do
     pip_command(args)
@@ -68,7 +68,7 @@ action :install do
 end
 
 def should_remove?
-  if current_resource.nil?
+  if current_value.nil?
     # Nothing installed
     false
   elsif version.nil?
@@ -93,7 +93,7 @@ end
 
 action :upgrade do
   # Upgrading
-  if current_resource.nil? or (current_resource.version != version)
+  if current_value.nil? or (current_value.version != version)
     converge_by "Upgrading backslasher_python_pip" do
       pip_command(['install','--upgrade',package_name])
     end
