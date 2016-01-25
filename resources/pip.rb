@@ -1,13 +1,13 @@
 property :python_path, String, default: 'python'
 property :package_name, String, name_property: true # Name of the package
-property :package_url, String, default: nil # URL of package location. Optional, used to specify git locations etc
+property :package_url, String, desired_state: false # URL of package location. Optional, used to specify git locations etc
 property :version, String, default: nil # Package to install. Defaults to "latest"
-property :virtualenv, String, default: nil
-property :timeout, Fixnum, deafult: 900
+property :virtualenv, String, desired_state: false # Venv
+property :timeout, Fixnum, deafult: 900, desired_state: false
 property :user, String, regex: Chef::Config[:user_valid_regex]
 property :group, String, regex: Chef::Config[:group_valid_regex]
-property :environment, Hash
-property :options, Array, default: [] # Additional options for installation
+property :environment, Hash, desired_state: false
+property :options, Array, default: [], desired_state: false # Additional options for installation
 
 require 'chef/mixin/shell_out'
 
