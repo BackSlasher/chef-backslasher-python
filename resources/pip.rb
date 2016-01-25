@@ -59,6 +59,7 @@ action :install do
   else
     # We have a specific version
     args=['install', "#{package_name}==#{version}"]
+    return if current_resource and current_resource.version == version # Don't install if it's the current version
   end
   converge_by "Installing backslasher_python_pip #{package_name}" do
     pip_command(args)
