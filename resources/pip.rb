@@ -47,9 +47,6 @@ load_current_value do
     # No such package installed
     current_value_does_not_exist!
   end
-  # Clone new resource, modify version
-  ret = new_resource.clone()
-  ret.version(current_version)
 end
 
 action :install do
