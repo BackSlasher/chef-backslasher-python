@@ -1,0 +1,1 @@
+backslasher_python_pip_installer 'pip'
