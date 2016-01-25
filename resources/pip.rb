@@ -27,9 +27,9 @@ def pip_command(subcommand)
   # Append pip starter to subcommand
   subcommand=subcommand.clone()
   if subcommand.class==Array
-    subcommand.unshift(real_python_path,'-m','pip')
+    subcommand.unshift(real_python_path,'-m','pip.__main__')
   elsif subcommand.class==String
-    subcommand=real_python_path+' -m pip '+subcommand
+    subcommand=real_python_path+' -m pip.__main__ '+subcommand
   else
     raise 'Invalid subcommand type. Supply Array or String'
   end
