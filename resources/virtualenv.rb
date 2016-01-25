@@ -5,8 +5,8 @@ property :group, String, regex: Chef::Config[:group_valid_regex]
 property :options, String # Additional options for venv initialization
 
 def exists?
-  ::File.exist?(current_resource.path) && ::File.directory?(current_resource.path) \
-    && ::File.exists?("#{current_resource.path}/bin/activate")
+  ::File.exist?(path) && ::File.directory?(path) \
+    && ::File.exists?("#{path}/bin/activate")
 end
 
 action :create do
@@ -19,7 +19,7 @@ action :create do
     group new_resource.group if new_resource.group
     environment ({ 'HOME' => ::Dir.home(new_resource.owner) }) if new_resource.owner
 
-    only_if {exists?}
+    not_if {exists?}
   end
 end
 
