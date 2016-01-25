@@ -39,7 +39,7 @@ end
 
 load_current_value do
   # Use the python path to find the current version of the module
-  pattern = Regexp.new("^#{Regexp.escape(new_resource.package_name)} \\(([^)]+)\\)$", true)
+  pattern = Regexp.new("^#{Regexp.escape(package_name)} \\(([^)]+)\\)$", true)
   my_line = pip_command('freeze').stdout.lines.find{|line| pattern.match(line)}
   if my_line
     version my_line[1]
