@@ -7,7 +7,7 @@ action :install do
   end
 
   execute 'install-pip' do
-    not_if "#{python_path} -m pip &>/dev/null"
+    only_if "#{python_path} -m pip &>/dev/null"
     command "#{python_path} #{get_pip}"
   end
 end
