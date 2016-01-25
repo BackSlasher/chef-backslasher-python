@@ -1,6 +1,12 @@
 # backslasher-python-cookbook
 
-TODO: Enter the cookbook description here.
+A cookbook for managing python-related resources in a simple way  
+This is mostly a ripoff of the [python cookbook](https://github.com/poise/python), since it's both deprecated and has its resource names stolen by [poise-python cookbook](https://github.com/poise/poise-python)  
+Resources:
+
+* `backslasher_python_pip_installer`: Makes sure a python envrionment has pip installed
+* `backslasher_python_pip`: A pip package
+* `backslasher_python_virtualenv`: A virtual environment
 
 ## Supported Platforms
 
