@@ -6,4 +6,4 @@ description      'Installs/Configures backslasher-python'
 long_description 'Installs/Configures backslasher-python'
 version          '0.1.0'
 
-depends 'compat_resource'
+depends 'compat_resource', '= 12.5.0'
