@@ -9,6 +9,8 @@ property :group, String, regex: Chef::Config[:group_valid_regex]
 property :environment, Hash, desired_state: false
 property :options, Array, default: [], desired_state: false # Additional options for installation
 
+default_action :install
+
 require 'chef/mixin/shell_out'
 
 def real_python_path

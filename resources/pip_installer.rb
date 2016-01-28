@@ -1,5 +1,7 @@
 property :python_path, String, default: 'python'
 
+default_action :install
+
 action :install do
   get_pip = "#{Chef::Config[:file_cache_path]}/get-pip.py"
   remote_file get_pip do

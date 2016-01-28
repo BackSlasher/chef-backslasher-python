@@ -4,6 +4,8 @@ property :owner, String, regex: Chef::Config[:user_valid_regex]
 property :group, String, regex: Chef::Config[:group_valid_regex]
 property :options, String # Additional options for venv initialization
 
+default_action :create
+
 def exists?
   ::File.exist?(path) && ::File.directory?(path) \
     && ::File.exists?("#{path}/bin/activate")
