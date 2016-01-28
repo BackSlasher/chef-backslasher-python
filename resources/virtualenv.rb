@@ -12,16 +12,17 @@ def exists?
 end
 
 action :create do
+  nr = self # me as new_resource
   directory path do
-    user owner if owner
-    group group if group
+    user nr.owner if nr.owner
+    group nr.group if nr.group
   end
   execute "virtualenv #{"--python="+interpreter if interpreter} #{options} #{path}" do
-    user owner if owner
-    group group if group
-    environment ({ 'HOME' => ::Dir.home(owner) }) if owner
+    user nr.owner if nr.owner
+    group nr.group if nr.group
+    environment ({ 'HOME' => ::Dir.home(nr.owner) }) if nr.owner
 
-    not_if {exists?}
+    not_if {nr.exists?}
   end
 end
 
