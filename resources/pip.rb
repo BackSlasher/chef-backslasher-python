@@ -53,19 +53,23 @@ load_current_value do
 end
 
 action :install do
-  if package_url
-    # We have a url to install from
-    args=['install',package_url]
-  elsif version.nil?
-    # We have no specific version
-    args=['install', package_name]
-  else
-    # We have a specific version
-    args=['install', "#{package_name}==#{version}"]
-    return if current_value and current_value.version == version
-  end
-  converge_by "Installing backslasher_python_pip #{package_name}" do
-    pip_command(args)
+  args = if package_url
+           # We have a url to install from
+           ['install',package_url]
+         elsif version.nil?
+           # We have no specific version
+           ['install', package_name]
+         elsif current_value and current_value.version == version
+           # We have the current version
+           nil
+         else
+           # We have a specific version
+           ['install', "#{package_name}==#{version}"]
+         end
+  if args
+    converge_by "Installing backslasher_python_pip #{package_name}" do
+      pip_command(args)
+    end
   end
 end
 
