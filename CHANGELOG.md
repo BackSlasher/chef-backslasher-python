@@ -1,3 +1,6 @@
+# 0.1.3
+- [backslasher] Disposing of new_resource
+
 # 0.1.2
 - [backslasher] Avoid return inside code block
 
