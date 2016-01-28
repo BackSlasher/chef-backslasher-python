@@ -2,9 +2,8 @@
 # Cookbook Name:: backslasher-python
 # Recipe:: default
 #
-# Copyright (C) 2016 YOUR_NAME
+# GPLv2
 #
-# All rights reserved - Do Not Redistribute
 #
 
 include_recipe "backslasher-python::#{node['backslasher-python']['install_method']}"
