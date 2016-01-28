@@ -86,7 +86,7 @@ def should_remove?
 end
 
 action :remove do
-  if should_remove?
+  if should_remove? # ~FC023
     converge_by "Removing backslasher_python_pip #{package_name}" do
       pip_command(['uninstall','--yes',package_name])
     end
@@ -95,7 +95,7 @@ end
 
 action :upgrade do
   # Upgrading
-  if current_value.nil? or (current_value.version != version)
+  if current_value.nil? or (current_value.version != version) # ~FC023
     converge_by "Upgrading backslasher_python_pip" do
       pip_command(['install','--upgrade',package_name])
     end
