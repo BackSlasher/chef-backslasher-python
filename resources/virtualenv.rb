@@ -12,21 +12,21 @@ def exists?
 end
 
 action :create do
-  directory new_resource.path do
-    user new_resource.owner if new_resource.owner
-    group new_resource.group if new_resource.group
+  directory path do
+    user owner if owner
+    group group if group
   end
-  execute "virtualenv #{"--python="+new_resource.interpreter if new_resource.interpreter} #{new_resource.options} #{new_resource.path}" do
-    user new_resource.owner if new_resource.owner
-    group new_resource.group if new_resource.group
-    environment ({ 'HOME' => ::Dir.home(new_resource.owner) }) if new_resource.owner
+  execute "virtualenv #{"--python="+interpreter if interpreter} #{options} #{path}" do
+    user owner if owner
+    group group if group
+    environment ({ 'HOME' => ::Dir.home(owner) }) if owner
 
     not_if {exists?}
   end
 end
 
 action :delete do
-  directory new_resource.path do
+  directory path do
     action :delete
     recursive true
   end
