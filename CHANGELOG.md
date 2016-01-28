@@ -1,6 +1,5 @@
 # 0.1.1
-Foodcritic issues
+- [backslasher] Foodcritic issues
 
 # 0.1.0
-
-Initial release of backslasher-python
+- [backslasher] Initial release of backslasher-python
