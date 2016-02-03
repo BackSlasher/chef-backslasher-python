@@ -21,6 +21,7 @@ suites:
   - recipe[minitest-handler]
   - recipe[backslasher-python]
   - recipe[backslasher_python_test::test_pip]
+  - recipe[backslasher_python_test::test_pip_owner]
 - name: exert
   excludes: ["centos-5.9"]
   run_list:

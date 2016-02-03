@@ -26,6 +26,7 @@ def pip_command(subcommand)
   environment = Hash.new
   environment['HOME'] = Dir.home(user) if user
   environment.merge!(environment) if environment && !environment.empty?
+  options[:environment] = environment
   # Append pip starter to subcommand
   subcommand=subcommand.clone()
   if subcommand.class==Array
