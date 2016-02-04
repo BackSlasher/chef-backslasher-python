@@ -1,3 +1,6 @@
+# 0.1.5
+- [backslahser] Fixed environment usage in pip
+
 # 0.1.4
 - [backslasher] Finally fixed `new_resource`
 
