@@ -1,3 +1,6 @@
+# 0.1.6
+- [backslasher] Removed version constraint on compat_resource
+
 # 0.1.5
 - [backslahser] Fixed environment usage in pip
 
