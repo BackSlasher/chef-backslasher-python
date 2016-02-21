@@ -6,5 +6,5 @@ description      'Installs/Configures python and python accessories'
 long_description 'Installs/Configures python and python accessories'
 version          '0.1.5'
 
-depends 'compat_resource', '= 12.5.0'
+depends 'compat_resource'
 depends 'yum-epel', '~> 0.6'
