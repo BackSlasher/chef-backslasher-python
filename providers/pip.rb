@@ -40,7 +40,7 @@ def load_current_resource
   pattern = Regexp.new("^#{Regexp.escape(under_package_name)} \\(([^)]+)\\)$", true)
   my_line = pip_command('list').stdout.lines.map{|line| pattern.match(line)}.compact.first
   if my_line
-    @current_resource.version = my_line[1]
+    @current_resource.version (my_line[1])
   else
     # No such version - leave version as nil
   end
