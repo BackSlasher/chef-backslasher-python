@@ -27,6 +27,7 @@ suites:
   - recipe[backslasher-python]
   - recipe[backslasher_python_test::test_pip]
   - recipe[backslasher_python_test::test_pip_owner]
+  - recipe[backslasher_python_test::test_pip_nil_version]
 - name: exert
   excludes: ["centos-5.9"]
   run_list:

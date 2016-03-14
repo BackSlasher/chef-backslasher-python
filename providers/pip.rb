@@ -44,6 +44,7 @@ def load_current_resource
   else
     # No such version - leave version as nil
   end
+  @current_resource
 end
 
 action :install do
