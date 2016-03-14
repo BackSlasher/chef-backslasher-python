@@ -1,3 +1,6 @@
+# 0.2.0
+- [backslasher] Modified syntax to old resource style
+
 # 0.1.6
 - [backslasher] Removed version constraint on compat_resource
 
