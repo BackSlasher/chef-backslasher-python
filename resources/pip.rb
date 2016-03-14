@@ -11,6 +11,3 @@ attribute :options, Array, default: [], desired_state: false # Additional option
 
 actions :install, :remove, :upgrade
 default_action :install
-
-#TODO treat current_resource
-#TODO treat new_resource
