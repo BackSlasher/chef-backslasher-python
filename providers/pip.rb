@@ -35,7 +35,7 @@ def pip_command(subcommand)
 end
 
 def load_current_resource
-  @current_resource = Chef::Resource::BackslasherPythonPip.new(@new_resource.path)
+  @current_resource = Chef::Resource::BackslasherPythonPip.new(@new_resource.name)
   under_package_name = new_resource.package_name.gsub('_', '-')
   pattern = Regexp.new("^#{Regexp.escape(under_package_name)} \\(([^)]+)\\)$", true)
   my_line = pip_command('list').stdout.lines.map{|line| pattern.match(line)}.compact.first
