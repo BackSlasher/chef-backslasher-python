@@ -46,7 +46,7 @@ Installs pip on a specific python executable
 * `python_path`: Python binary to install pip on.  
     Defaults to `python`, which should find the "system" python
 
-**Note**: This action might overwrite the "primary"pip binary. There is no easy way to avoid this since there is no way to instruct `setuptools` not to create "entry points". I'll happily accept a PR for fixing this.
+**Note**: This action might overwrite the "primary" pip binary. There is no easy way to avoid this since there is no way to instruct `setuptools` not to create "entry points". I'll happily accept a PR for fixing this.
 
 ### backslasher\_python\_pip
 Installs/removed/upgrades a pip package
@@ -85,5 +85,7 @@ Manages a python virtualenv
 * `options`: Optional. A string of arguments to pass the virtualenv creator
 
 ## License and Authors
+Licensed [GPL v2](http://choosealicense.com/licenses/gpl-2.0/)  
+Author: [Nitzan Raz](https://github.com/BackSlasher) ([backslasher](http://backslasher.net))
 
-Author:: YOUR_NAME (<YOUR_EMAIL>)
+I'll be happy to accept contributions or to hear from you!
