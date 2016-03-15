@@ -26,7 +26,7 @@ def pip_command(subcommand)
   if subcommand.class==Array
     subcommand.unshift(real_python_path,'-m','pip.__main__')
   elsif subcommand.class==String
-    subcommand=real_python_path+' -m pip.__main__ '+subcommand
+    subcommand="#{real_python_path} -m pip.__main__ #{subcommand}"
   else
     raise 'Invalid subcommand type. Supply Array or String'
   end
@@ -50,16 +50,16 @@ end
 action :install do
   args = if new_resource.package_url
            # We have a url to install from
-           ['install',new_resource.package_url]
+           ['install', *new_resource.install_options ,new_resource.package_url]
          elsif new_resource.version.nil?
            # We have no specific version
-           ['install', new_resource.package_name]
+           ['install', *new_resource.install_options , new_resource.package_name]
          elsif current_resource.version and current_resource.version == new_resource.version
            # We have the current version
            nil
          else
            # We have a specific version
-           ['install', "#{new_resource.package_name}==#{new_resource.version}"]
+           ['install', *new_resource.install_options ,"#{new_resource.package_name}==#{new_resource.version}"]
          end
   if args
     converge_by "Installing backslasher_python_pip #{new_resource.package_name}" do
@@ -96,7 +96,7 @@ action :upgrade do
   # Upgrading
   if current_resource.version.nil? or (current_resource.version != new_resource.version) # ~FC023
     converge_by "Upgrading backslasher_python_pip #{new_resource.package_name}" do
-      pip_command(['install','--upgrade',new_resource.package_name])
+      pip_command(['install','--upgrade',*new_resource.install_options,new_resource.package_name])
     end
   end
 end

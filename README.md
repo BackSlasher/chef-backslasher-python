@@ -68,7 +68,7 @@ Installs/removed/upgrades a pip package
 * ``user`: User to run the commands under
 * `group`: Group to run the commands under
 * `environment`: Hash of environment variables to pass to the pip commands
-* `options`: An array of arguments to pass to the pip commands
+* `install_options`: An array of arguments to pass to the pip commands when installing / upgrading packages
 
 ### backslasher\_virtualenv
 Manages a python virtualenv

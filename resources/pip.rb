@@ -7,7 +7,7 @@ attribute :timeout, kind_of: Fixnum, default: 900
 attribute :user, kind_of: String, regex: Chef::Config[:user_valid_regex]
 attribute :group, kind_of: String, regex: Chef::Config[:group_valid_regex]
 attribute :environment, kind_of: Hash
-attribute :options, kind_of: Array, default: [] # Additional options for installation
+attribute :install_options, kind_of: Array, default: [] # Additional options for installation
 
 actions :install, :remove, :upgrade
 default_action :install
