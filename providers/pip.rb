@@ -15,6 +15,21 @@ def real_python_path
   end
 end
 
+def should_install(requirement_row,is_upgrading)
+  return true unless new_resource.smart_install # Skip if not smart install
+  # Run script from current cookbook
+  cookbook_path = run_context.cookbook_collection['backslasher-python'].root_dir
+  file_path = ::File.join(cookbook_path,'files/default/smart_install.py')
+
+  pro = shell_out!([real_python_path, file_path, requirement_row])
+  res = Integer(pro.stdout)
+  if is_upgrading
+    return res>0
+  else
+    return res==2
+  end
+end
+
 def pip_command(subcommand)
   options = { :timeout => new_resource.timeout, :user => new_resource.user, :group => new_resource.group }
   environment = Hash.new
@@ -48,20 +63,21 @@ def load_current_resource
 end
 
 action :install do
-  args = if new_resource.package_url
+  install_name = if new_resource.package_url
            # We have a url to install from
-           ['install', *new_resource.install_options ,new_resource.package_url]
+           new_resource.package_url
          elsif new_resource.version.nil?
            # We have no specific version
-           ['install', *new_resource.install_options , new_resource.package_name]
+           new_resource.package_name
          elsif current_resource.version and current_resource.version == new_resource.version
            # We have the current version
            nil
          else
            # We have a specific version
-           ['install', *new_resource.install_options ,"#{new_resource.package_name}==#{new_resource.version}"]
+           "#{new_resource.package_name}==#{new_resource.version}"
          end
-  if args
+  if install_name && should_install(install_name, false)
+    args = ['install', *new_resource.install_options, install_name]
     converge_by "Installing backslasher_python_pip #{new_resource.package_name}" do
       pip_command(args)
     end
@@ -94,7 +110,8 @@ end
 
 action :upgrade do
   # Upgrading
-  if current_resource.version.nil? or (current_resource.version != new_resource.version) # ~FC023
+  if should_install(new_resource.package_name, true) and # smart install ~FC023
+    ( current_resource.version.nil? or (current_resource.version != new_resource.version) ) # dumb install
     converge_by "Upgrading backslasher_python_pip #{new_resource.package_name}" do
       pip_command(['install','--upgrade',*new_resource.install_options,new_resource.package_name])
     end

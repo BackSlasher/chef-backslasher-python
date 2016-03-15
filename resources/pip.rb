@@ -8,6 +8,7 @@ attribute :user, kind_of: String, regex: Chef::Config[:user_valid_regex]
 attribute :group, kind_of: String, regex: Chef::Config[:group_valid_regex]
 attribute :environment, kind_of: Hash
 attribute :install_options, kind_of: Array, default: [] # Additional options for installation
+attribute :smart_install, kind_of: [TrueClass, FalseClass], default: false
 
 actions :install, :remove, :upgrade
 default_action :install

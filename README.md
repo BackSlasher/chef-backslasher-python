@@ -69,6 +69,7 @@ Installs/removed/upgrades a pip package
 * `group`: Group to run the commands under
 * `environment`: Hash of environment variables to pass to the pip commands
 * `install_options`: An array of arguments to pass to the pip commands when installing / upgrading packages
+* `smart\_install`: Uses a python script to check if package should be installed. Avoids running pip (and marking the resource as updated) "for nothing". Does not work in edge cases, so disabled by default.
 
 ### backslasher\_virtualenv
 Manages a python virtualenv
