@@ -1,3 +1,6 @@
+# 0.2.1
+- [backslasher] Improved load_current_resource
+
 # 0.2.0
 - [backslasher] Modified syntax to old resource style
 
