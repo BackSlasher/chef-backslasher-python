@@ -18,7 +18,7 @@ end
 def should_install(requirement_row,is_upgrading)
   return true unless new_resource.smart_install # Skip if not smart install
   # Run script from current cookbook
-  cookbook_path = run_context.cookbook_collection['backslasher-python'].root_dir
+  cookbook_path = ::File.dirname(::File.dirname(__FILE__))
   file_path = ::File.join(cookbook_path,'files/default/smart_install.py')
 
   pro = shell_out!([real_python_path, file_path, requirement_row])
