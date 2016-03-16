@@ -1,3 +1,6 @@
+# 0.3.2
+- [backslasher] Improved testing of smart_install
+
 # 0.3.1
 - [backslasher] Fixed error in Chef client with cookbook location detection
 
