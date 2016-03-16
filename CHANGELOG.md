@@ -1,3 +1,6 @@
+# 0.3.1
+- [backslasher] Fixed error in Chef client with cookbook location detection
+
 # 0.3.0
 - [backslasher] Added smart_install to avoid running pip "needlessly"
 
