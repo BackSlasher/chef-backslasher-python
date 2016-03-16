@@ -1,3 +1,6 @@
+# 0.3.0
+- [backslasher] Added smart_install to avoid running pip "needlessly"
+
 # 0.2.1
 - [backslasher] Improved load_current_resource
 
