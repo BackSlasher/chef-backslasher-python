@@ -1,3 +1,6 @@
+# 0.3.3
+- [backslasher] Improved smart_install - now emulates pip better
+
 # 0.3.2
 - [backslasher] Improved testing of smart_install
 
