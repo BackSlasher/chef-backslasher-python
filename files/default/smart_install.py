@@ -1,32 +1,18 @@
-#!/usr/bin/env python
+from pip.req import RequirementSet
 
-# Smart Install
-# Nitzan Raz 2016
-# GPLv2
+to_install=[]
 
-# Used to determine whether pip wants to install/upgrade a certain requirement row
-# Accepts requirement row in ARGV
-# Return the following:
-# OUTPUT | install | upgrade |
-# 0      | F       | F       |
-# 1      | F       | T       |
-# 2      | T       | T       |
+def my_install(self, install_options, global_options=(), *args, **kwargs):
+    global to_install
+    to_install.extend([r for r in self.requirements.values() if not r.satisfied_by])
 
-# Exit code stays "authentic" to indicate errors
+RequirementSet.install = my_install
 
+import pip
 import sys
-req_row = sys.argv[1]
+args = sys.argv[1:]
+if '-q' not in args: args.append('-q') # keep it quiet
+pip.main(args)
 
-from pip.req import InstallRequirement
-req = InstallRequirement.from_line(req_row)
-exists = req.check_if_exists()
-satisfied = req.satisfied_by is not None
-if exists:
-    if satisfied:
-        ret=0
-    else:
-        ret=1
-else:
-    ret=2
-
-print ret
+#print 'to_install is',[r.name for r in to_install]
+print any(to_install)
