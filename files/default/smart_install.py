@@ -9,7 +9,8 @@ RequirementSet.install = my_install
 # Patch WheelBuilder.build to do nothing
 from pip.wheel import  WheelBuilder
 def my_build(self, autobuilding):
-    pass
+    assert self._wheel_dir or (autobuilding and self._cache_root)
+    self.requirement_set.prepare_files(self.finder)
 WheelBuilder.build = my_build
 
 # Emulate `pip install`
