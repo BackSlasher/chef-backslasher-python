@@ -1,3 +1,6 @@
+# 0.4.0
+- [OmriManor] smart_install no longer compiles packages
+
 # 0.3.3
 - [backslasher] Improved smart_install - now emulates pip better
 
