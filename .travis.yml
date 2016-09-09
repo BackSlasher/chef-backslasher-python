@@ -1,0 +1,5 @@
+language: ruby
+rvm: 2.3.1
+cache: bundler
+script:
+  - bundle install --with=testing && bundle exec rake testing:travis
