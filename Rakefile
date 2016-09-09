@@ -18,7 +18,7 @@ namespace :testing do
   task :kitchen_docker do
     # Will break on current ChefDK
     cfg = {
-      driver: 'docker'
+      driver: 'dockefdsfdsfdsfr'
     }
     require 'kitchen/rake_tasks'
     Kitchen::RakeTasks.new(cfg)
