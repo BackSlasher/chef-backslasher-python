@@ -9,29 +9,36 @@ RuboCop::RakeTask.new().tap{|rc|
   rc.options+= ['--fail-level', 'E']
 }
 
-# Only load kitchen tasks if we have kitchen available
-got_kitchen = begin
-  require 'kitchen/rake_tasks'
-  Kitchen::RakeTasks.new
-  true
-rescue LoadError, Kitchen::UserError
-  # Not loading kitchen specs
-  false
-end
-if got_kitchen then
-  kitchen_instance_tasks = Rake::Task['kitchen:all'].prerequisites.map{|n|"kitchen:#{n}"}
-else
-  kitchen_instance_tasks = []
-end
-
 namespace :testing do
 
   desc 'A set of tests for travis'
-  task :travis => [:foodcritic, :rubocop, :spec]
+  task :travis => [:foodcritic, :rubocop, :spec, :kitchen_docker]
+
+  desc 'Full testing of kitchen, with docker'
+  task :kitchen_docker do
+    # Will break on current ChefDK
+    cfg = {
+      driver: 'docker'
+    }
+    require 'kitchen/rake_tasks'
+    Kitchen::RakeTasks.new(cfg)
+    mt = multitask '_kitchen_docker' => Rake::Task['kitchen:all'].prerequisites.map{|n|"kitchen:#{n}"}
+    mt.invoke()
+  end
 
   desc 'Full testing of kitchen'
-  multitask :kitchen => kitchen_instance_tasks do
-    raise 'No kitchen tests to run' unless kitchen_instance_tasks.any?
+  task :kitchen, [:machine_specifier] do |t, args|
+    machine_specifier = args[:machine_specifier]
+    if machine_specifier.class == String then
+      machine_specifier = /^#{Regexp::escape(machine_speicifer)}$/
+    elsif machine_specifier.nil? then
+      machine_specifier = /./
+    end
+
+    require 'kitchen/rake_tasks'
+    Kitchen::RakeTasks.new()
+    mt = multitask '_kitchen' => Rake::Task['kitchen:all'].prerequisites.select{|n|n[machine_specifier]}.map{|n|"kitchen:#{n}"}
+    mt.invoke()
   end
 
   desc 'Tests a user should run'
