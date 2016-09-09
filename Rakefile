@@ -12,19 +12,7 @@ RuboCop::RakeTask.new().tap{|rc|
 namespace :testing do
 
   desc 'A set of tests for travis'
-  task :travis => [:foodcritic, :rubocop, :spec, :kitchen_docker]
-
-  desc 'Full testing of kitchen, with docker'
-  task :kitchen_docker do
-    # Will break on current ChefDK
-    cfg = {
-      driver: 'dockefdsfdsfdsfr'
-    }
-    require 'kitchen/rake_tasks'
-    Kitchen::RakeTasks.new(cfg)
-    mt = multitask '_kitchen_docker' => Rake::Task['kitchen:all'].prerequisites.map{|n|"kitchen:#{n}"}
-    mt.invoke()
-  end
+  task :travis => [:foodcritic, :rubocop, :spec]
 
   desc 'Full testing of kitchen'
   task :kitchen, [:machine_specifier] do |t, args|

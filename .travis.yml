@@ -8,3 +8,4 @@ rvm: 2.3.1
 cache: bundler
 script:
   - bundle install --with=testing && bundle exec rake testing:travis
+  - bundle install --with=kitchen && kitchen_driver=docker bundle exec rake testing:kitchen
