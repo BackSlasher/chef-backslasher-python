@@ -17,6 +17,7 @@ gem 'berkshelf'
 group :kitchen do
   gem 'test-kitchen'
   gem 'kitchen-vagrant'
+  gem 'kitchen-docker'
 end
 
 group :testing do
