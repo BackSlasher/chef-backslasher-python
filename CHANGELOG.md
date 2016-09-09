@@ -1,3 +1,6 @@
+# 0.4.1
+- [backslasher] Added travis test harness
+
 # 0.4.0
 - [OmriManor] smart_install no longer compiles packages
 
